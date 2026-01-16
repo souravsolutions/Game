@@ -1,8 +1,15 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import GamesPage from "./pages/games/GamesPage";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <GamesPage />,
+  },
+]);
 
 const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+  return <RouterProvider router={router} />;
+};
 
-export default App
+export default App;
