@@ -2,7 +2,9 @@ import { NavLink } from "react-router-dom";
 import { useGames } from "./hooks/use-games";
 import { lazy, Suspense } from "react";
 import { useInfiniteScroll } from "./hooks/use-infinite-scroll";
+import { Spinner } from "@/components/ui/spinner";
 const GamesAvilabel = lazy(() => import("./GamesAvilabel"));
+import { Star } from "lucide-react";
 
 const GamesPage = () => {
   const {
@@ -21,7 +23,12 @@ const GamesPage = () => {
     onLoadMore: () => fetchNextPage(),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className='flex items-center gap-4'>
+        <Spinner />
+      </div>
+    );
   if (isError)
     return (
       <div>
@@ -33,23 +40,73 @@ const GamesPage = () => {
   const games = data?.pages.flatMap((p) => p.results) ?? [];
 
   return (
-    <div className='min-h-screen w-full p-4 sm:p-6 lg:p-8 bg-[#313244]'>
+    <div className='min-h-screen w-full bg-linear-to-br from-[#1e1e2e] to-[#181825] p-4 sm:p-6 lg:p-8'>
       <h1>{data?.pages?.[0]?.count ?? 0}</h1>
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
         {games.map((game) => (
-          <NavLink to={`/${game.id}`} key={game.id} className='block-group'>
-            <div className='h-auto bg-[#1e1e2e]'>
+          <NavLink
+            to={`/${game.id}`}
+            key={game.id}
+            className='group rounded-xl overflow-hidden bg-[#020617]
+            border border-white/5'
+          >
+            <div className='relative h-48'>
               <img
                 src={game.background_image}
                 alt={game.name}
-                className='w-full h-48 sm:h-52 lg:h-56 object-cover'
+                className='w-full h-full object-cover'
               />
-              <Suspense fallback={<div>Loading...</div>}>
-                <GamesAvilabel platforms={game?.parent_platforms} />
-              </Suspense>
-              <div className='flex gap-10'>
-                <h2>{game.name}</h2>
-                <p>{game.rating}</p>
+              <div className='absolute inset-0 bg-linear-to-t from-black/80 to-transparent' />
+            </div>
+
+            <div className='p-4 space-y-3'>
+              <h2 className='text-white font-semibold leading-tight line-clamp-2'>
+                {game.name}
+              </h2>
+
+              {game.released && (
+                <p className='text-xs text-gray-400'>
+                  Released: {new Date(game.released).toDateString()}
+                </p>
+              )}
+
+              {game.genres && (
+                <div className='flex flex-wrap gap-2'>
+                  {game.genres.slice(0, 3).map((genre) => (
+                    <span
+                      key={genre.id}
+                      className='px-2 py-0.5 text-xs rounded bg-white/5 text-gray-300'
+                    >
+                      {genre.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className='flex items-center justify-between pt-3 border-t border-white/5'>
+                <Suspense fallback={null}>
+                  <GamesAvilabel platforms={game.parent_platforms} />
+                </Suspense>
+
+                <div className='flex items-center gap-2 text-sm'>
+                  {game.metacritic && (
+                    <span
+                      className={`px-2 py-0.5 rounded font-medium ${
+                        game.metacritic >= 75
+                          ? "bg-green-500/20 text-green-400"
+                          : game.metacritic >= 50
+                            ? "bg-yellow-500/20 text-yellow-400"
+                            : "bg-red-500/20 text-red-400"
+                      }`}
+                    >
+                      {game.metacritic}
+                    </span>
+                  )}
+
+                  <span className='text-gray-300 flex items-center gap-1'>
+                    <Star className="text-yellow-400 size-4"/> {game.rating.toFixed(1)}
+                  </span>
+                </div>
               </div>
             </div>
           </NavLink>
@@ -57,8 +114,14 @@ const GamesPage = () => {
       </div>
       <div ref={loadMoreRef} className='h-10' />
 
-      {isFetchingNextPage ? <div>Loading more...</div> : null}
-      {!hasNextPage ? <div>No more games</div> : null}
+      {isFetchingNextPage && (
+        <div className='flex justify-center py-10'>
+          <Spinner className='size-10 text-white' />
+        </div>
+      )}
+      {!hasNextPage ? (
+        <div className='flex items-center gap-4'>No more games</div>
+      ) : null}
     </div>
   );
 };
