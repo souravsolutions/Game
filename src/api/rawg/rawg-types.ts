@@ -9,7 +9,7 @@ export type Game = {
   id: number;
   slug: string;
   name: string;
-  background_image?: string | null;
+  background_image?: string;
   released?: string | null;
   rating: number;
   ratings_count?: number;

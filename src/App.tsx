@@ -6,6 +6,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <GamesPage />,
   },
+  {
+    path: "/:id",
+    element: <div>hi</div>,
+  },
 ]);
 
 const App = () => {
