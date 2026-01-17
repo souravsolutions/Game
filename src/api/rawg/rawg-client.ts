@@ -1,8 +1,8 @@
 import api from "../axiosInstance";
 import type { AllGame, ScreenshotsResponse, SingleGame } from "./rawg-types";
 
-export const getGames = async (): Promise<AllGame> => {
-  const { data } = await api.get("/games");
+export const getGames = async (page:number,pageSize:number): Promise<AllGame> => {
+  const { data } = await api.get("/games",{params:{page_size:pageSize,page}});
   return data;
 };
 

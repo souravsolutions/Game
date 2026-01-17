@@ -1,10 +1,25 @@
 import { NavLink } from "react-router-dom";
 import { useGames } from "./hooks/use-games";
 import { lazy, Suspense } from "react";
+import { useInfiniteScroll } from "./hooks/use-infinite-scroll";
 const GamesAvilabel = lazy(() => import("./GamesAvilabel"));
 
 const GamesPage = () => {
-  const { data, isLoading, isError, error, refetch } = useGames();
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGames(10);
+
+  const loadMoreRef = useInfiniteScroll({
+    enabled: !!hasNextPage && !isFetchingNextPage,
+    onLoadMore: () => fetchNextPage(),
+  });
 
   if (isLoading) return <div>Loading...</div>;
   if (isError)
@@ -15,11 +30,13 @@ const GamesPage = () => {
       </div>
     );
 
+  const games = data?.pages.flatMap((p) => p.results) ?? [];
+
   return (
     <div className='min-h-screen w-full p-4 sm:p-6 lg:p-8 bg-[#313244]'>
-      <h1>{data?.count}</h1>
+      <h1>{data?.pages?.[0]?.count ?? 0}</h1>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8'>
-        {data?.results.map((game) => (
+        {games.map((game) => (
           <NavLink to={`/${game.id}`} key={game.id} className='block-group'>
             <div className='h-auto bg-[#1e1e2e]'>
               <img
@@ -28,16 +45,20 @@ const GamesPage = () => {
                 className='w-full h-48 sm:h-52 lg:h-56 object-cover'
               />
               <Suspense fallback={<div>Loading...</div>}>
-                <GamesAvilabel platforms={game?.parent_platforms}/>
+                <GamesAvilabel platforms={game?.parent_platforms} />
               </Suspense>
-              <div className="flex gap-10">
-              <h2>{game.name}</h2>
-              <p>{game.rating}</p>
+              <div className='flex gap-10'>
+                <h2>{game.name}</h2>
+                <p>{game.rating}</p>
               </div>
             </div>
           </NavLink>
         ))}
       </div>
+      <div ref={loadMoreRef} className='h-10' />
+
+      {isFetchingNextPage ? <div>Loading more...</div> : null}
+      {!hasNextPage ? <div>No more games</div> : null}
     </div>
   );
 };
