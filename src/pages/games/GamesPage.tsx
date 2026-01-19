@@ -6,7 +6,12 @@ import { Spinner } from "@/components/ui/spinner";
 const GamesAvilabel = lazy(() => import("./GamesAvilabel"));
 import { Star } from "lucide-react";
 
-const GamesPage = () => {
+type Props = {
+  genre: string | null;
+  search: string | null;
+};
+
+const GamesPage = ({ genre, search }: Props) => {
   const {
     data,
     isLoading,
@@ -16,7 +21,7 @@ const GamesPage = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGames(10);
+  } = useGames(8, genre, search);
 
   const loadMoreRef = useInfiniteScroll({
     enabled: !!hasNextPage && !isFetchingNextPage,
@@ -40,15 +45,14 @@ const GamesPage = () => {
   const games = data?.pages.flatMap((p) => p.results) ?? [];
 
   return (
-    <div className='min-h-screen w-full bg-linear-to-br from-[#1e1e2e] to-[#181825] p-4 sm:p-6 lg:p-8'>
-      <h1>{data?.pages?.[0]?.count ?? 0}</h1>
+    <div className='min-h-screen w-full bg-linear-to-br p-4 sm:p-6 lg:p-8 flex flex-col'>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
         {games.map((game) => (
           <NavLink
             to={`/${game.id}`}
             key={game.id}
-            className='group rounded-xl overflow-hidden bg-[#020617]
-            border border-white/5'
+            className='group rounded-md overflow-hidden 
+            border border-black dark:border-white/5'
           >
             <div className='relative h-48'>
               <img
@@ -60,7 +64,7 @@ const GamesPage = () => {
             </div>
 
             <div className='p-4 space-y-3'>
-              <h2 className='text-white font-semibold leading-tight line-clamp-2'>
+              <h2 className='font-semibold leading-tight line-clamp-2'>
                 {game.name}
               </h2>
 
@@ -104,7 +108,8 @@ const GamesPage = () => {
                   )}
 
                   <span className='text-gray-300 flex items-center gap-1'>
-                    <Star className="text-yellow-400 size-4"/> {game.rating.toFixed(1)}
+                    <Star className='text-yellow-400 size-4' />{" "}
+                    {game.rating.toFixed(1)}
                   </span>
                 </div>
               </div>

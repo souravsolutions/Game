@@ -2,11 +2,20 @@ import api from "../axiosInstance";
 import type { AllGame, ScreenshotsResponse, SingleGame } from "./rawg-types";
 
 export const getGames = async (
-  page: number,
   pageSize: number,
+  page: number,
+  genre?: string | null,
+  search?: string | null,
+  signal?: AbortSignal,
 ): Promise<AllGame> => {
   const { data } = await api.get("/games", {
-    params: { page_size: pageSize, page },
+    signal,
+    params: {
+      page_size: pageSize,
+      page,
+      ...(genre ? { genres: genre } : {}),
+      ...(search ? { search: search } : {}),
+    },
   });
   return data;
 };

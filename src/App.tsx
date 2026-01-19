@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import GamesPage from "./pages/games/GamesPage";
+import MainGamePage from "./pages/games/MainGamePage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <GamesPage />,
+    element: <MainGamePage />,
   },
   {
     path: "/:id",

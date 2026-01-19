@@ -18,5 +18,8 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@optics": "https://optics.agusmayol.com.ar/r/{name}.json",
+    "@reui": "https://reui.io/r/{name}.json"
+  }
 }
