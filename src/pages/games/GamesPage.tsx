@@ -30,13 +30,14 @@ const GamesPage = ({ genre, search }: Props) => {
 
   if (isLoading)
     return (
-      <div className='flex items-center gap-4'>
-        <Spinner />
+      <div className='flex items-center gap-4 h-screen justify-center'>
+        <Spinner className='size-10 text-white/80' />
       </div>
     );
+
   if (isError)
     return (
-      <div>
+      <div className="flex items-center gap-4 h-screen justify-center">
         <h1>{error.message}</h1>
         <button onClick={() => refetch()}>Try again</button>
       </div>

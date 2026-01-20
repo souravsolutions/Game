@@ -34,9 +34,9 @@ export function GameSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Genres</SidebarGroupLabel>
+          <SidebarGroupLabel>Games</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="pl-2">
               {GENRES.map((g) => {
                 const isActive = (g.value ?? null) === (activeGenre ?? null);
 
@@ -50,6 +50,7 @@ export function GameSidebar() {
                         else next.set("genre", g.value);
                         setParams(next);
                       }}
+                      className="text-sm"
                     >
                       {g.label}
                     </SidebarMenuButton>
