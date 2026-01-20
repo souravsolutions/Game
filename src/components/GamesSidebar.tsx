@@ -24,6 +24,7 @@ const GENRES = [
   { label: "Arcade", value: "arcade" },
   { label: "Platformer", value: "platformer" },
   { label: "Fighting", value: "fighting" },
+  { label: "Multiplayer", value: "massively-multiplayer" },  
 ];
 
 export function GameSidebar() {
