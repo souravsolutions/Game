@@ -24,7 +24,7 @@ const GENRES = [
   { label: "Arcade", value: "arcade" },
   { label: "Platformer", value: "platformer" },
   { label: "Fighting", value: "fighting" },
-  { label: "Multiplayer", value: "massively-multiplayer" },  
+  { label: "Multiplayer", value: "massively-multiplayer" },
 ];
 
 export function GameSidebar() {
@@ -37,7 +37,7 @@ export function GameSidebar() {
         <SidebarGroup>
           <SidebarGroupLabel>Games</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="pl-2">
+            <SidebarMenu className='pl-2'>
               {GENRES.map((g) => {
                 const isActive = (g.value ?? null) === (activeGenre ?? null);
 
@@ -51,7 +51,7 @@ export function GameSidebar() {
                         else next.set("genre", g.value);
                         setParams(next);
                       }}
-                      className="text-sm"
+                      className='text-sm'
                     >
                       {g.label}
                     </SidebarMenuButton>
