@@ -53,6 +53,12 @@ export type SingleGame = {
   rating: number;
   genres?: Genre[];
   description_raw: string;
+  short_screenshots: Screenshots[];
+};
+
+export type Screenshots = {
+  id: number;
+  image: string;
 };
 
 export type MetacriticPlatform = {

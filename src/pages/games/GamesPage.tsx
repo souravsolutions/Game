@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useGames } from "./hooks/use-games";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useMemo } from "react";
 import { useInfiniteScroll } from "./hooks/use-infinite-scroll";
 import { Spinner } from "@/components/ui/spinner";
 const GamesAvilabel = lazy(() => import("./GamesAvilabel"));
@@ -28,6 +28,10 @@ const GamesPage = ({ genre, search }: Props) => {
     onLoadMore: () => fetchNextPage(),
   });
 
+  const games = useMemo(() => {
+    return data?.pages.flatMap((p) => p.results) ?? [];
+  }, [data?.pages]);
+
   if (isLoading)
     return (
       <div className='flex items-center gap-4 h-screen justify-center'>
@@ -37,13 +41,13 @@ const GamesPage = ({ genre, search }: Props) => {
 
   if (isError)
     return (
-      <div className="flex items-center gap-4 h-screen justify-center">
+      <div className='flex items-center gap-4 h-screen justify-center'>
         <h1>{error.message}</h1>
         <button onClick={() => refetch()}>Try again</button>
       </div>
     );
 
-  const games = data?.pages.flatMap((p) => p.results) ?? [];
+  // const games = data?.pages.flatMap((p) => p.results) ?? [];
 
   return (
     <div className='min-h-screen w-full bg-linear-to-br p-4 sm:p-6 lg:p-8 flex flex-col'>
