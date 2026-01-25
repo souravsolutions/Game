@@ -1,7 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Orbitron:wght@400..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-ubuntu: "Ubuntu", sans-serif;
+  --font-jetbrains: "JetBrains Mono", monospace;
+  --font-source: "Source Code Pro", monospace;
+  --font-geist: "Geist Mono", monospace;
+  --font-orbitron: "Orbitron", sans-serif;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

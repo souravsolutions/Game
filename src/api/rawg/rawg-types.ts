@@ -52,6 +52,14 @@ export type SingleGame = {
   rating: number;
   genres?: Genre[];
   description_raw: string;
+  parent_platforms?: ParentPlatform[];
+  playtime?: number;
+  achievements_count?: number;
+  publishers?: {
+    id: number;
+    name: string;
+    slug: string;
+  }[];
 };
 
 export type MetacriticPlatform = {

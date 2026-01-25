@@ -1,6 +1,5 @@
-import type { ParentPlatform } from "@/api/rawg/rawg-types";
+import type { ParentPlatform } from "@/api/rawg/rawg-types"; // Adjust path as needed
 import type { ReactElement } from "react";
-
 import {
   FaWindows,
   FaApple,
@@ -15,7 +14,7 @@ type Props = {
   platforms?: ParentPlatform[];
 };
 
-const ICON_SIZE = 20;
+const ICON_SIZE = 14; // Slightly smaller to fit inside a badge nicely
 
 const platformIconMap: Record<string, ReactElement> = {
   pc: <FaWindows size={ICON_SIZE} />,
@@ -30,7 +29,7 @@ const GamesAvailable: React.FC<Props> = ({ platforms }) => {
   if (!platforms?.length) return null;
 
   return (
-    <div className='flex items-center gap-2 m-3'>
+    <div className='flex items-center gap-2'>
       {platforms.map(({ platform }) => {
         const icon = platformIconMap[platform.slug] ?? (
           <FaGamepad size={ICON_SIZE} />
@@ -40,7 +39,7 @@ const GamesAvailable: React.FC<Props> = ({ platforms }) => {
           <span
             key={platform.id}
             title={platform.name}
-            className='text-muted-foreground '
+            className='transition-colors duration-200 hover:text-primary'
           >
             {icon}
           </span>

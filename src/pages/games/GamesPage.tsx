@@ -35,7 +35,7 @@ const GamesPage = ({ genre, search }: Props) => {
   if (isLoading)
     return (
       <div className='flex items-center gap-4 h-screen justify-center'>
-        <Spinner className='size-10 text-white/80' />
+        <Spinner className='size-10 text-primary/80' />
       </div>
     );
 
@@ -48,14 +48,14 @@ const GamesPage = ({ genre, search }: Props) => {
     );
 
   return (
-    <div className='min-h-screen w-full bg-linear-to-br p-4 sm:p-6 lg:p-8 flex flex-col'>
+    <div className='min-h-screen w-full bg-background p-4 sm:p-6 lg:p-8 flex flex-col'>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
         {games.map((game) => (
           <NavLink
             to={`/games/${game.id}`}
             key={game.id}
-            className='group rounded-md overflow-hidden 
-            border border-black dark:border-white/5'
+            className='group rounded-md overflow-hidden bg-card 
+            border border-border shadow-sm'
           >
             <div className='relative h-48'>
               <img
@@ -63,7 +63,7 @@ const GamesPage = ({ genre, search }: Props) => {
                 alt={game.name}
                 className='w-full h-full object-cover'
               />
-              <div className='absolute inset-0 bg-linear-to-t from-black/80 to-transparent' />
+              <div className='absolute inset-0 bg-gradient-to-t from-black/20 to-transparent' />
             </div>
 
             <div className='p-4 space-y-3'>
@@ -72,7 +72,7 @@ const GamesPage = ({ genre, search }: Props) => {
               </h2>
 
               {game.released && (
-                <p className='text-xs text-gray-400'>
+                <p className='text-xs text-muted-foreground'>
                   Released: {new Date(game.released).toDateString()}
                 </p>
               )}
@@ -82,7 +82,7 @@ const GamesPage = ({ genre, search }: Props) => {
                   {game.genres.slice(0, 3).map((genre) => (
                     <span
                       key={genre.id}
-                      className='px-2 py-0.5 text-xs rounded bg-white/5 text-gray-300'
+                      className='px-2 py-0.5 text-xs rounded bg-secondary text-secondary-foreground'
                     >
                       {genre.name}
                     </span>
@@ -90,7 +90,7 @@ const GamesPage = ({ genre, search }: Props) => {
                 </div>
               )}
 
-              <div className='flex items-center justify-between pt-3 border-t border-white/5'>
+              <div className='flex items-center justify-between pt-3 border-t border-border'>
                 <Suspense fallback={null}>
                   <GamesAvilabel platforms={game.parent_platforms} />
                 </Suspense>
@@ -98,19 +98,18 @@ const GamesPage = ({ genre, search }: Props) => {
                 <div className='flex items-center gap-2 text-sm'>
                   {game.metacritic && (
                     <span
-                      className={`px-2 py-0.5 rounded font-medium ${
-                        game.metacritic >= 75
+                      className={`px-2 py-0.5 rounded font-medium ${game.metacritic >= 75
                           ? "bg-green-500/20 text-green-400"
                           : game.metacritic >= 50
                             ? "bg-yellow-500/20 text-yellow-400"
                             : "bg-red-500/20 text-red-400"
-                      }`}
+                        }`}
                     >
                       {game.metacritic}
                     </span>
                   )}
 
-                  <span className='text-gray-300 flex items-center gap-1'>
+                  <span className='text-muted-foreground flex items-center gap-1'>
                     <Star className='text-yellow-400 size-4' />{" "}
                     {game.rating.toFixed(1)}
                   </span>
@@ -124,7 +123,7 @@ const GamesPage = ({ genre, search }: Props) => {
 
       {isFetchingNextPage && (
         <div className='flex justify-center py-10'>
-          <Spinner className='size-10 text-white' />
+          <Spinner className='size-10 text-primary' />
         </div>
       )}
       {!hasNextPage ? (
