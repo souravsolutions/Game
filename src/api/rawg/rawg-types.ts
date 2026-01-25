@@ -45,7 +45,6 @@ export type SingleGame = {
   id: number;
   slug: string;
   name: string;
-  description?: string;
   metacritic_platforms: MetacriticPlatform[];
   released?: string | null;
   background_image?: string;
@@ -53,12 +52,6 @@ export type SingleGame = {
   rating: number;
   genres?: Genre[];
   description_raw: string;
-  short_screenshots: Screenshots[];
-};
-
-export type Screenshots = {
-  id: number;
-  image: string;
 };
 
 export type MetacriticPlatform = {

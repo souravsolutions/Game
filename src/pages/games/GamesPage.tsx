@@ -47,14 +47,12 @@ const GamesPage = ({ genre, search }: Props) => {
       </div>
     );
 
-  // const games = data?.pages.flatMap((p) => p.results) ?? [];
-
   return (
     <div className='min-h-screen w-full bg-linear-to-br p-4 sm:p-6 lg:p-8 flex flex-col'>
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8'>
         {games.map((game) => (
           <NavLink
-            to={`/${game.id}`}
+            to={`/games/${game.id}`}
             key={game.id}
             className='group rounded-md overflow-hidden 
             border border-black dark:border-white/5'
