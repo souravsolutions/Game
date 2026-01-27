@@ -24,6 +24,7 @@ export function useGames(
 
     staleTime: 1000 * 60 * 10,
     refetchOnWindowFocus: false,
+    gcTime: 1000 * 60 * 10,
     retry: 1,
   });
 }
