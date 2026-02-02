@@ -72,7 +72,7 @@ export function ModeToggle() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className='inline-flex items-center overflow-hidden rounded-full bg-white ring-1 ring-zinc-200 ring-inset dark:bg-zinc-950 dark:ring-zinc-700'
+      className='inline-flex items-center overflow-hidden rounded-full bg-white ring-1 ring-zinc-200 ring-inset dark:bg-[#0a0a0a] dark:ring-zinc-800'
       role='radiogroup'
     >
       {THEME_OPTIONS.map((option) => (
