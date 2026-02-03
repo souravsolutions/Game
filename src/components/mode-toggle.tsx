@@ -1,89 +1,26 @@
-"use client";
-
-import type { JSX } from "react";
-import { useSyncExternalStore } from "react";
-import { MonitorIcon, MoonStarIcon, SunIcon } from "lucide-react";
-import { motion } from "motion/react";
-
-import { cn } from "@/lib/utils";
+import { SunIcon, MoonStarIcon } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
-
-function ThemeOption({
-  icon,
-  value,
-  isActive,
-  onClick,
-}: {
-  icon: JSX.Element;
-  value: "system" | "light" | "dark";
-  isActive?: boolean;
-  onClick: (value: "system" | "light" | "dark") => void;
-}) {
-  return (
-    <button
-      type='button'
-      className={cn(
-        "relative flex size-8 items-center justify-center rounded-full transition-[color] [&_svg]:size-4",
-        isActive
-          ? "text-zinc-950 dark:text-zinc-50"
-          : "text-zinc-400 hover:text-zinc-950 dark:text-zinc-500 dark:hover:text-zinc-50",
-      )}
-      role='radio'
-      aria-checked={isActive}
-      aria-label={`Switch to ${value} theme`}
-      onClick={() => onClick(value)}
-    >
-      {icon}
-
-      {isActive && (
-        <motion.div
-          layoutId='theme-option'
-          transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-          className='absolute inset-0 rounded-full border border-zinc-200 dark:border-zinc-700'
-        />
-      )}
-    </button>
-  );
-}
-
-const THEME_OPTIONS: Array<{
-  icon: JSX.Element;
-  value: "system" | "light" | "dark";
-}> = [
-  { icon: <MonitorIcon />, value: "system" },
-  { icon: <SunIcon />, value: "light" },
-  { icon: <MoonStarIcon />, value: "dark" },
-];
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
 
-  const isMounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
+  const isDark = theme === "dark";
 
-  if (!isMounted) return <div className='flex h-8 w-24' />;
+  const toggleTheme = () => {
+    setTheme(isDark ? "light" : "dark");
+  };
 
   return (
-    <motion.div
-      key={String(isMounted)}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-      className='inline-flex items-center overflow-hidden rounded-full bg-white ring-1 ring-zinc-200 ring-inset dark:bg-[#0a0a0a] dark:ring-zinc-800'
-      role='radiogroup'
+    <button
+      onClick={toggleTheme}
+      className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-background hover:bg-accent transition"
+      aria-label="Toggle theme"
     >
-      {THEME_OPTIONS.map((option) => (
-        <ThemeOption
-          key={option.value}
-          icon={option.icon}
-          value={option.value}
-          isActive={theme === option.value}
-          onClick={setTheme}
-        />
-      ))}
-    </motion.div>
+      {isDark ? (
+        <SunIcon className="size-4" />
+      ) : (
+        <MoonStarIcon className="size-4" />
+      )}
+    </button>
   );
 }
