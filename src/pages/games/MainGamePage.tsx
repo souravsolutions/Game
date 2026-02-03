@@ -28,7 +28,7 @@ const MainGamePage = () => {
 
         <main className='flex-1' ref={navRef}>
           <header className='flex h-14 items-center gap-2 border-b px-4'>
-            <SidebarTrigger />
+            <SidebarTrigger className="show md:hidden"/>
 
             <div className='flex flex-1 items-center justify-between gap-3'>
               <GamesSearch />

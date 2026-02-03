@@ -14,7 +14,7 @@ type Props = {
   platforms?: ParentPlatform[];
 };
 
-const ICON_SIZE = 14; // Slightly smaller to fit inside a badge nicely
+const ICON_SIZE = 14;
 
 const platformIconMap: Record<string, ReactElement> = {
   pc: <FaWindows size={ICON_SIZE} />,

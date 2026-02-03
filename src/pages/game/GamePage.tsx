@@ -12,7 +12,7 @@ import {
   type MoveLeftIconHandle,
 } from "@/components/icons/MoveLeftIcon";
 import { cn } from "@/lib/utils";
-import GamesAvailable from "../games/GamesAvilabel";
+import GamesAvailable from "../games/GamesAvailable";
 import { ExternalLinkIcon } from "@/components/icons/ExternalLinkIcon";
 
 const GamePage = () => {

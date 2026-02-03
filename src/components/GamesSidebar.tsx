@@ -8,29 +8,58 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+
+import {
+  LayoutGrid,
+  Flame,
+  Crosshair,
+  Compass,
+  Trophy,
+  Car,
+  Brain,
+  Cpu,
+  Puzzle,
+  Smile,
+  Gamepad2,
+  Box,
+  Swords,
+  Users,
+} from "lucide-react";
+import type { ReactNode } from "react";
+
 import { useSearchParams } from "react-router-dom";
 
-type GenreItem = { label: string; value: string | null };
+type GenreItem = {
+  label: string;
+  value: string | null;
+  icon?: ReactNode | null;
+};
 
-const ALL: GenreItem[] = [{ label: "All", value: null }];
+const ALL: GenreItem[] = [
+  { label: "All", value: null, icon: <LayoutGrid size={16} /> },
+];
 
 const POPULAR: GenreItem[] = [
-  { label: "Action", value: "action" },
-  { label: "Shooter", value: "shooter" },
-  { label: "Adventure", value: "adventure" },
-  { label: "Sports", value: "sports" },
-  { label: "Racing", value: "racing" },
-  { label: "Strategy", value: "strategy" },
+  { label: "Action", value: "action", icon: <Flame size={16} /> },
+  { label: "Shooter", value: "shooter", icon: <Crosshair size={16} /> },
+  { label: "Adventure", value: "adventure", icon: <Compass size={16} /> },
+  { label: "Sports", value: "sports", icon: <Trophy size={16} /> },
+  { label: "Racing", value: "racing", icon: <Car size={16} /> },
+  { label: "Strategy", value: "strategy", icon: <Brain size={16} /> },
 ];
 
 const MORE: GenreItem[] = [
-  { label: "Simulation", value: "simulation" },
-  { label: "Puzzle", value: "puzzle" },
-  { label: "Casual", value: "casual" },
-  { label: "Arcade", value: "arcade" },
-  { label: "Platformer", value: "platformer" },
-  { label: "Fighting", value: "fighting" },
-  { label: "Multiplayer", value: "massively-multiplayer" },
+  { label: "Simulation", value: "simulation", icon: <Cpu size={16} /> },
+  { label: "Puzzle", value: "puzzle", icon: <Puzzle size={16} /> },
+  { label: "Casual", value: "casual", icon: <Smile size={16} /> },
+  { label: "Arcade", value: "arcade", icon: <Gamepad2 size={16} /> },
+  { label: "Platformer", value: "platformer", icon: <Box size={16} /> },
+  { label: "Fighting", value: "fighting", icon: <Swords size={16} /> },
+  {
+    label: "Multiplayer",
+    value: "massively-multiplayer",
+    icon: <Users size={16} />,
+  },
 ];
 
 function GenreSection({
@@ -60,8 +89,9 @@ function GenreSection({
                 <SidebarMenuButton
                   isActive={isActive}
                   onClick={() => onSelect(g.value)}
-                  className='text-sm'
+                  className='text-sm flex gap-4'
                 >
+                  {g.icon}
                   {g.label}
                 </SidebarMenuButton>
               </SidebarMenuItem>
