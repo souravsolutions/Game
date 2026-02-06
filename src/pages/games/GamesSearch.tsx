@@ -3,11 +3,13 @@ import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 
 const GamesSearch = () => {
+  //this line copy the search thing form url like search=game
   const [params, setParams] = useSearchParams();
   const [value, setValue] = useState("");
 
   const searchRef = useRef<HTMLInputElement>(null);
 
+  //hear in this useEffect we are listening to the keydown event on the window object
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
@@ -20,10 +22,12 @@ const GamesSearch = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  //here we are listening to the search params
   useEffect(() => {
     setValue(params.get("search") ?? "");
   }, [params]);
 
+  //here we are listening to the value and applying the debounce
   useEffect(() => {
     const t = setTimeout(() => {
       const next = new URLSearchParams(params);
@@ -32,7 +36,7 @@ const GamesSearch = () => {
       if (!v) next.delete("search");
       else next.set("search", v);
       setParams(next);
-    }, 400);
+    }, 500);
 
     return () => clearTimeout(t);
   }, [value, params, setParams]);

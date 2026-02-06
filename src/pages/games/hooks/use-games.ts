@@ -12,6 +12,7 @@ export function useGames(
       "games",
       { pageSize, genre: genre ?? null, search: search ?? null },
     ],
+
     queryFn: ({ pageParam = 1, signal }) =>
       getGames(pageSize, Number(pageParam), genre, search, signal),
 

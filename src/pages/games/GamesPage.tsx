@@ -59,7 +59,7 @@ const GamesPage = ({ genre, search }: Props) => {
       )}
       {!hasNextPage ? (
         <div className='flex items-center justify-center gap-4'>
-          No more games...
+          {games.length === 0 ? "No game found" : "No more games..."}
         </div>
       ) : null}
     </div>
