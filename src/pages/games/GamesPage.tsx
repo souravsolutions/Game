@@ -54,7 +54,7 @@ const GamesPage = ({ genre, search }: Props) => {
     );
 
   return (
-    <div className='min-h-screen w-full bg-background p-4 sm:px-6 lg:px-8 flex flex-col justify-center'>
+    <div className='min-h-screen w-full bg-background flex flex-col justify-center'>
       <div className='grid gap-8 grid-cols-[repeat(auto-fit,minmax(300px,1fr))]'>
         <GameCard games={games} />
       </div>
