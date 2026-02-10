@@ -1,7 +1,6 @@
 import { useGames } from "./hooks/use-games";
 import { useEffect, useMemo } from "react";
 import { useInfiniteScroll } from "./hooks/use-infinite-scroll";
-import { Spinner } from "@/components/ui/spinner";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 
