@@ -22,7 +22,7 @@ const GamesSearch = () => {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  //here we are listening to the search params
+  //When the Pages refresh Make sure go there where we leave
   useEffect(() => {
     setValue(params.get("search") ?? "");
   }, [params]);

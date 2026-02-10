@@ -26,6 +26,7 @@ const platformIconMap: Record<string, ReactElement> = {
 };
 
 const GamesAvailable: React.FC<Props> = ({ platforms }) => {
+  // If there are no platforms, return null
   if (!platforms?.length) return null;
 
   return (

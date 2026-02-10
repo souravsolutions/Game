@@ -25,6 +25,7 @@ const GamePage = () => {
   const y = useTransform(scrollY, [0, 1000], [0, 400]);
   const opacity = useTransform(scrollY, [0, 600], [1, 0]);
 
+  //data fetching hear using react query
   const { data: game, isLoading, isError, error, refetch } = useGame(id);
 
   if (isLoading)

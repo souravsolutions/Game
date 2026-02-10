@@ -9,15 +9,16 @@ const Screenshot = ({ id }: { id: number }) => {
   const { data, isLoading, isError, refetch } = useGameScreenshots(id);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
+  // Navigation next image but hear we use callback because we say we don't want to run this function on every render
   const handleNext = useCallback(
     (e?: React.MouseEvent) => {
       e?.stopPropagation();
       if (selectedIndex === null || !data?.results) return;
       setSelectedIndex((prev) =>
-        prev === data.results.length - 1 ? 0 : (prev as number) + 1
+        prev === data.results.length - 1 ? 0 : (prev as number) + 1,
       );
     },
-    [selectedIndex, data]
+    [selectedIndex, data],
   );
 
   const handlePrev = useCallback(
@@ -25,10 +26,10 @@ const Screenshot = ({ id }: { id: number }) => {
       e?.stopPropagation();
       if (selectedIndex === null || !data?.results) return;
       setSelectedIndex((prev) =>
-        prev === 0 ? data.results.length - 1 : (prev as number) - 1
+        prev === 0 ? data.results.length - 1 : (prev as number) - 1,
       );
     },
-    [selectedIndex, data]
+    [selectedIndex, data],
   );
 
   // Keyboard navigation
@@ -138,7 +139,7 @@ const Screenshot = ({ id }: { id: number }) => {
               />
 
               {/* Image Counter */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/60 backdrop-blur-md rounded-full text-white text-sm font-medium">
+              <div className='absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/60 backdrop-blur-md rounded-full text-white text-sm font-medium'>
                 {selectedIndex + 1} / {data.results.length}
               </div>
             </motion.div>
