@@ -54,8 +54,10 @@ const GamePage = () => {
             alt={game?.name}
             className='w-full h-full object-cover'
           />
-          <div className='absolute inset-0 bg-linear-to-t from-background via-background/40 to-black/30' />
-          <div className='absolute inset-0 bg-linear-to-r from-background/80 via-transparent to-transparent' />
+          <div className='absolute inset-0 bg-linear-to-t from-background/60 via-background/5 to-black/20' />
+
+          {/* Left Gradient – softer */}
+          <div className='absolute inset-0 bg-linear-to-r from-background/50 via-transparent to-transparent' />
         </motion.div>
 
         <div className='fixed top-6 left-6 z-50'>
